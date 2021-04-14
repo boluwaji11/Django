@@ -12,3 +12,13 @@ topics = Topic.objects.all()
 
 for t in topics:
     print(f"Topic ID: {t.id} and Topic Name: {t}")
+
+print()
+t = Topic.objects.get(id=1)
+print(t.text)
+print(t.date_added)
+
+entries = t.entry_set.all()
+
+for entry in entries:
+    print(entry)
