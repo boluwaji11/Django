@@ -1,13 +1,13 @@
-{% extend "MainApps/base.html" %}
+{% extends "MainApp/base.html" %}
 
 {% block content %}
 
 <p>Topics</p>
 
 <ul>
-    {% for topic in topics}
+    {% for t in topics %}
     <li>
-        {{topic}}
+        <a href="{% url 'MainApp:topic' t.id %}">{{t}}</a>
     </li>
     {% empty %}
     <li>No topics have been added yet.</li>
