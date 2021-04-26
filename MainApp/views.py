@@ -67,17 +67,16 @@ def new_entry(request, topic_id):
 
 @login_required
 def edit_entry(request, entry_id):
-    topic = Topic.objects.get(id=topic_id)
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
     if request.method != "POST":
-        form = EntryForm()
+        form = EntryForm(instance=entry)
     else:
-        form = EntryForm(data=request.POST)
+        form = EntryForm(instance=entry, data=request.POST)
 
         if form.is_valid():
-            new_entry = form.save(commit=False)
-            new_entry.topic = topic
             new_entry.save()
-            return redirect("MainApp:topic", topic_id=topic_id)
+            return redirect("MainApp:topic", topic_id=topic.id)
 
-    context = {"form": form, "topic": topic}
+    context = {"form": form, "topic": topic, "entry": entry}
     return render(request, "MainApp/new_entry.html", context)
